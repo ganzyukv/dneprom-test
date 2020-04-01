@@ -42,7 +42,12 @@ class StreetModel extends \yii\db\ActiveRecord
         return [
             'name' => 'Name',
             'ref' => 'Ref',
-            'city_ref' => 'City Ref',
+            'city_ref' => 'City',
         ];
+    }
+
+    public function getCity()
+    {
+        return $this->hasOne(CityModel::class, ['ref' => 'city_ref']);
     }
 }

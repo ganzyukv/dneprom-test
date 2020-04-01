@@ -2,13 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\StreetSearch;
 use Yii;
-use app\models\StreetModel;
-use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * StreetController implements the CRUD actions for StreetModel model.
@@ -32,12 +30,6 @@ class StreetController extends Controller
                     ],
                 ],
             ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
         ];
     }
 
@@ -47,28 +39,13 @@ class StreetController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => StreetModel::find(),
-        ]);
+        $searchModel = new StreetSearch();
+//        VarDumper::dump(Yii::$app->request->get());
+        $dataProvider = $searchModel->search(Yii::$app->request->get());
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
         ]);
-    }
-
-    /**
-     * Finds the StreetModel model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
-     * @return StreetModel the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = StreetModel::findOne($id)) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }
