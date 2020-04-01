@@ -25,13 +25,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'name',
             'ref',
-//            'city.name',
             [
-                'attribute' => 'city.name',
-                'filter'    => Html::activeDropDownList($searchModel, 'city_ref', ArrayHelper::map(CityModel::find()->asArray()->all(), 'ref', 'name'), ['class'  => 'form-control', 'prompt' => 'All']),
-            ],
-
-            ['class' => 'yii\grid\ActionColumn'],
+                'attribute' => 'city',
+                'value' => 'city.name',
+                'filter'    => Html::activeDropDownList($searchModel,
+                    'city_ref',
+                    ArrayHelper::map(CityModel::find()->asArray()->all(), 'ref', 'name'),
+                    [
+                        'class'  => 'form-control',
+                        'prompt' => 'All'
+                    ]),
+            ]
         ],
     ]); ?>
 

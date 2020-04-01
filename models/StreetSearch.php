@@ -3,6 +3,7 @@
 namespace app\models;
 
 use yii\data\ActiveDataProvider;
+use yii\helpers\VarDumper;
 
 class StreetSearch extends StreetModel
 {
@@ -17,11 +18,17 @@ class StreetSearch extends StreetModel
 
     public function search($params)
     {
+        VarDumper::dump($params);
         $query = StreetModel::find()->joinWith(['city']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        $dataProvider->sort->attributes['city'] = [
+            'asc' => [CityModel::tableName().'.name' => SORT_ASC],
+            'desc' => [CityModel::tableName().'.name' => SORT_DESC],
+        ];
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;

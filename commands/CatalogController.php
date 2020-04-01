@@ -10,7 +10,6 @@ use yii\console\Controller;
 use yii\console\ExitCode;
 use yii\db\Exception;
 use yii\helpers\Console;
-use yii\helpers\VarDumper;
 use yii\httpclient\Client;
 
 /**
