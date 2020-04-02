@@ -40,7 +40,6 @@ class StreetController extends Controller
     public function actionIndex()
     {
         $searchModel = new StreetSearch();
-//        VarDumper::dump(Yii::$app->request->get());
         $dataProvider = $searchModel->search(Yii::$app->request->get());
 
         return $this->render('index', [
